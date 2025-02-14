@@ -1,0 +1,18 @@
+
+spring:
+  cloud:
+    gateway:
+      mvc:
+        routes:
+          - id: the-route
+            uri: 'http://the-route:3333'
+            predicates:
+              - Path=/the-route/**
+            filters:
+              - StripPrefix=1
+              - name: Retry
+                args:
+                  retries: 3
+                  methods: GET,POST
+server:
+  port: 8222
